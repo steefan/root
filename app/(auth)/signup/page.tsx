@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signup } from "../actions";
+import { GoogleButton } from "@/components/google-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,9 +27,19 @@ export default async function SignupPage({
           <CardTitle>Create your companion</CardTitle>
           <CardDescription>Sign up to get started.</CardDescription>
         </CardHeader>
+        <CardContent className="space-y-4">
+          {error && <p className="text-sm text-destructive">{error}</p>}
+          <GoogleButton next="/chat" />
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-xs text-muted-foreground">
+              or with email
+            </span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </CardContent>
         <form action={signup}>
-          <CardContent className="space-y-4">
-            {error && <p className="text-sm text-destructive">{error}</p>}
+          <CardContent className="space-y-4 pt-0">
             <div className="space-y-2">
               <Label htmlFor="display_name">Your name</Label>
               <Input id="display_name" name="display_name" type="text" />

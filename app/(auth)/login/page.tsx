@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { login } from "../actions";
+import { GoogleButton } from "@/components/google-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,12 +27,22 @@ export default async function LoginPage({
           <CardTitle>Welcome back</CardTitle>
           <CardDescription>Sign in to your companion.</CardDescription>
         </CardHeader>
+        <CardContent className="space-y-4">
+          {message && (
+            <p className="text-sm text-muted-foreground">{message}</p>
+          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
+          <GoogleButton next="/chat" />
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-xs text-muted-foreground">
+              or with email
+            </span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </CardContent>
         <form action={login}>
-          <CardContent className="space-y-4">
-            {message && (
-              <p className="text-sm text-muted-foreground">{message}</p>
-            )}
-            {error && <p className="text-sm text-destructive">{error}</p>}
+          <CardContent className="space-y-4 pt-0">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" name="email" type="email" required />
