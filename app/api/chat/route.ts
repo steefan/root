@@ -138,5 +138,20 @@ export async function POST(req: Request) {
     },
   });
 
-  return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse({
+    // Turn provider/gateway failures (most importantly a reached spend limit)
+    // into a friendly, in-character message instead of a silent 500.
+    onError: (error) => {
+      const msg = error instanceof Error ? error.message : String(error);
+      console.error("chat stream error:", msg);
+      if (
+        /credit card|spend|budget|limit|quota|insufficient|payment|Gateway|402|403|429/i.test(
+          msg,
+        )
+      ) {
+        return "I need to take a little break right now 💤 — looks like we've hit the usage limit for the moment. Try again a bit later.";
+      }
+      return "Hmm, something glitched on my end. Give me a sec and try again?";
+    },
+  });
 }

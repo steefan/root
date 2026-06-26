@@ -35,7 +35,7 @@ export function Chat({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
       body: { companionId },
@@ -158,6 +158,20 @@ export function Chat({
               voice={voice}
             />
           ))}
+          {error && (
+            <div className="flex items-end gap-2">
+              <Avatar className="h-8 w-8 shrink-0">
+                {avatarUrl && <AvatarImage src={avatarUrl} alt={companionName} />}
+                <AvatarFallback>
+                  {companionName[0]?.toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="max-w-[80%] rounded-2xl bg-muted px-4 py-2 text-sm text-muted-foreground italic">
+                {error.message ||
+                  "I need to take a little break right now 💤. Try again later."}
+              </div>
+            </div>
+          )}
           <div ref={bottomRef} />
         </div>
       </div>
