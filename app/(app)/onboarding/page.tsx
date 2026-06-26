@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { SuggestField } from "@/components/suggest-field";
 import {
   Card,
   CardContent,
@@ -36,22 +37,42 @@ export default async function OnboardingPage({
               <Label htmlFor="name">Name</Label>
               <Input id="name" name="name" placeholder="e.g. Mika" required />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="tone">Tone</Label>
-              <Input
-                id="tone"
-                name="tone"
-                placeholder="e.g. warm, playful, a little sarcastic"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="traits">Traits (comma-separated)</Label>
-              <Input
-                id="traits"
-                name="traits"
-                placeholder="e.g. curious, supportive, witty"
-              />
-            </div>
+            <SuggestField
+              id="tone"
+              name="tone"
+              label="Tone"
+              placeholder="e.g. warm, playful, a little sarcastic"
+              suggestions={[
+                "warm",
+                "playful",
+                "sarcastic",
+                "calm",
+                "witty",
+                "flirty",
+                "direct",
+                "nurturing",
+                "serious",
+                "cheerful",
+              ]}
+            />
+            <SuggestField
+              id="traits"
+              name="traits"
+              label="Traits (comma-separated)"
+              placeholder="e.g. curious, supportive, witty"
+              suggestions={[
+                "curious",
+                "supportive",
+                "witty",
+                "honest",
+                "patient",
+                "funny",
+                "empathetic",
+                "adventurous",
+                "protective",
+                "thoughtful",
+              ]}
+            />
             <div className="space-y-2">
               <Label htmlFor="backstory">Backstory (optional)</Label>
               <Textarea
